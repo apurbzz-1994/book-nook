@@ -21,7 +21,6 @@
                     echo $this->Form->control('email');
                     echo $this->Form->control('password');
                     echo $this->Form->control('role');
-                    echo $this->Form->control('books._ids', ['options' => $books]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

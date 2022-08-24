@@ -76,6 +76,16 @@ class UsersTable extends Table
             ->maxLength('role', 20)
             ->allowEmptyString('role');
 
+        $validator
+            ->scalar('name')
+            ->maxLength('name', 64)
+            ->allowEmptyString('name');
+
+        $validator
+            ->scalar('bio')
+            ->maxLength('bio', 256)
+            ->allowEmptyString('bio');
+
         return $validator;
     }
 

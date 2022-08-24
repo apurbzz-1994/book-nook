@@ -21,6 +21,7 @@
     <div class="column-responsive column-80">
         <div class="users view content">
             <h3><?= h($user->id) ?></h3>
+            <?= $this->Html->link(__('Edit Profile'), ['action' => 'editProfile', $user->id], ['class' => 'button']) ?>
             <table>
                 <tr>
                     <th><?= __('Email') ?></th>
