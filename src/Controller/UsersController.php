@@ -35,6 +35,49 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['Books'],
         ]);
+        
+        // placing code from the edit function here
+        if ($this->request->is(['patch', 'post', 'put'])) {
+
+            /**
+             * SUPER IMPORTANT: I'm sending the ID of each book as a hidden field
+             * called "hiddenid". I'll be manually changing these to "id" here
+             */
+
+            $booksChanged = $this->request->getData()['books'];
+            $dataToPatch = $this->request->getData();
+            $books = [];
+            
+            foreach($booksChanged as $book){
+                $bookEntry = ['id' => $book['hiddenid'] , '_joinData'=>$book['_joinData']];
+                array_push($books, $bookEntry);
+            }
+
+            $dataToPatch['books'] = $books;
+           
+           
+            /**
+             * SUPER IMPORTANT: Note that I am turning off the validations for
+             * the books and users entity, because I'm not altering them in any way. 
+             * All I'm doing is adding things to the join table, and that's already being 
+             * validated properly. */    
+
+            $user = $this->Users->patchEntity($user, $dataToPatch, [
+                'validate' => false,
+                'associated' => [
+                    'Books' => ['validate' => false],
+                    'Books._joinData'
+                ]
+            ]);
+
+           
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Your reading preference has been updated'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('Your reading preference could not be saved. Please, try again.'));
+        }
 
         $this->set(compact('user'));
     }
@@ -82,13 +125,14 @@ class UsersController extends AppController
              
             //setting the books attribute with the new array
             $dataToPatch['books'] = $books;
-            
+          
             /** =============end code here========================================*/
             
             // note that I am patching the modified array, and not the original request data
             $user = $this->Users->patchEntity($user, $dataToPatch, [
                 'associated' => ['Books._joinData']
             ]);
+
            
            
             if ($this->Users->save($user)) {

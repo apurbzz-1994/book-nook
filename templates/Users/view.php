@@ -48,6 +48,8 @@
                 <?= $this->Html->link(__('Add a book'), ['action' => 'addBookByUser', $user->id], ['class' => 'button']) ?>
                 <?php if (!empty($user->books)) : ?>
                 <div class="table-responsive">
+                     <!--creating a form here to select book status-->
+                     <?= $this->Form->create($user); ?>
                     <table>
                         <tr>
                             <th><?= __('Id') ?></th>
@@ -55,9 +57,9 @@
                             <th><?= __('Author') ?></th>
                             <th><?= __('Description') ?></th>
                             <th><?= __('Category Id') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
+                            <th class="actions"><?= __('Status') ?></th>
                         </tr>
-                        <?php foreach ($user->books as $books) : ?>
+                        <?php foreach ($user->books as $key=>$books) : ?>
                         <tr>
                             <td><?= h($books->id) ?></td>
                             <td><?= h($books->name) ?></td>
@@ -65,13 +67,24 @@
                             <td><?= h($books->description) ?></td>
                             <td><?= h($books->category_id) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Books', 'action' => 'view', $books->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Books', 'action' => 'edit', $books->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Books', 'action' => 'delete', $books->id], ['confirm' => __('Are you sure you want to delete # {0}?', $books->id)]) ?>
+
+                               <!--
+                                   Please note that this is not correct:
+                                   echo $this->Form->control('user.books.'.$key.'._joinData.status');
+                                   The user here is not required. You can create a form field for 
+                                   any of the
+                               -->
+                               <?php
+                                    echo $this->Form->control('books.'.$key.'.hiddenid', ['value'=> $books->id, 'type'=>'hidden']);
+                                    echo $this->Form->control('books.'.$key.'._joinData.status');
+                               ?>
+                               
                             </td>
                         </tr>
                         <?php endforeach; ?>
                     </table>
+                    <?= $this->Form->button(__('Submit')) ?>
+                    <?= $this->Form->end() ?>
                 </div>
                 <?php endif; ?>
             </div>
