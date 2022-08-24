@@ -75,15 +75,16 @@
                                    any of the
                                -->
                                <?php
+                                    $optionsArray = ['Want to Read' => 'Want to Read', 'Reading' => 'Reading', 'Finished'=>'Finished'];
                                     echo $this->Form->control('books.'.$key.'.hiddenid', ['value'=> $books->id, 'type'=>'hidden']);
-                                    echo $this->Form->control('books.'.$key.'._joinData.status');
+                                    echo $this->Form->control('books.'.$key.'._joinData.status', ['options'=>$optionsArray]);
                                ?>
                                
                             </td>
                         </tr>
                         <?php endforeach; ?>
                     </table>
-                    <?= $this->Form->button(__('Submit')) ?>
+                    <?= $this->Form->button(__('Change Reading Status')) ?>
                     <?= $this->Form->end() ?>
                 </div>
                 <?php endif; ?>
