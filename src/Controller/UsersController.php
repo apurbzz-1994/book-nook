@@ -60,14 +60,11 @@ class UsersController extends AppController
         $this->set(compact('user', 'books'));
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
+     /** 
+     * I'm using the user's id to track who the user is. I might have to change this so that
+     * the user's id is fetched from the authentication object instead.
+    */
+    public function addBookByUser($id = null)
     {
         $user = $this->Users->get($id, [
             'contain' => ['Books'],
@@ -95,22 +92,25 @@ class UsersController extends AppController
            
            
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('Your books collection has been updated'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $user->id]);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('Your books collection could not be updated. Please, try again.'));
         }
         $books = $this->Users->Books->find('list', ['limit' => 200])->all();
       
         $this->set(compact('user', 'books'));
     }
 
-    /** 
-     * I'm using the user's id to track who the user is. I might have to change this so that
-     * the user's id is fetched from the authentication object instead.
-    */
-    public function addBookByUser($id = null){
+    /**
+     * Edit method
+     *
+     * @param string|null $id User id.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function edit($id = null){
         $user = $this->Users->get($id, [
             'contain' => ['Books'],
         ]);

@@ -44,7 +44,8 @@
                 </tr>
             </table>
             <div class="related">
-                <h4><?= __('Related Books') ?></h4>
+                <h4><?= __('My Books') ?></h4>
+                <?= $this->Html->link(__('Add a book'), ['action' => 'addBookByUser', $user->id], ['class' => 'button']) ?>
                 <?php if (!empty($user->books)) : ?>
                 <div class="table-responsive">
                     <table>

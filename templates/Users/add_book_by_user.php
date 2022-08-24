@@ -23,10 +23,9 @@
             <fieldset>
                 <legend><?= __('Edit User') ?></legend>
                 <?php
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('role');
+                    
                     echo $this->Form->control('books._ids', ['options' => $books]);
+                    //books.0._joinData.status, ["value" => ""]
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
