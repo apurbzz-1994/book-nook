@@ -33,8 +33,10 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Books'],
+            'contain' => ['Books', 'Books.Categories'],
         ]);
+
+        
         
         // placing code from the edit function here
         if ($this->request->is(['patch', 'post', 'put'])) {

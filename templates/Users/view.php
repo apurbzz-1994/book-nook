@@ -60,7 +60,7 @@
                             <th><?= __('Name') ?></th>
                             <th><?= __('Author') ?></th>
                             <th><?= __('Description') ?></th>
-                            <th><?= __('Category Id') ?></th>
+                            <th><?= __('Category') ?></th>
                             <th class="actions"><?= __('Status') ?></th>
                         </tr>
                         <?php foreach ($user->books as $key=>$books) : ?>
@@ -69,7 +69,7 @@
                             <td><?= h($books->name) ?></td>
                             <td><?= h($books->author) ?></td>
                             <td><?= h($books->description) ?></td>
-                            <td><?= h($books->category_id) ?></td>
+                            <td><?= h($books->category->name) ?></td>
                             <td class="actions">
 
                                <!--
