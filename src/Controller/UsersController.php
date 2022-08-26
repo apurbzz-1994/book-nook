@@ -115,13 +115,21 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             /**code for setting the book status to "want to read" by default*/
             $allBookIds = $this->request->getData()['books']['_ids'];
+           
             $books = [];
             $dataToPatch = $this->request->getData();
             
-            foreach($allBookIds as $id){
-                $bookEntry = ['id' => $id, '_joinData' => ['status'=>'Want to read']];
-                array_push($books, $bookEntry);
+            
+            //need to add a check here so that it doesn't throw error when
+            // no book is selected or all books are unselected.
+            //added a if check if no book is selected (returns an empty id array) 
+            if(!empty($allBookIds)){
+                foreach($allBookIds as $id){
+                    $bookEntry = ['id' => $id, '_joinData' => ['status'=>'Want to read']];
+                    array_push($books, $bookEntry);
+                }
             }
+            
              
             //setting the books attribute with the new array
             $dataToPatch['books'] = $books;

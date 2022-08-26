@@ -23,8 +23,10 @@
             <fieldset>
                 <legend><?= __('Edit User') ?></legend>
                 <?php
+
+                  
                     
-                    echo $this->Form->control('books._ids', ['options' => $books]);
+                    echo $this->Form->control('books._ids', ['options' => $books, 'type'=>'select', 'multiple'=>'checkbox']);
                     //books.0._joinData.status, ["value" => ""]
                 ?>
             </fieldset>
