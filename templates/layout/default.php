@@ -27,31 +27,39 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <!--declaring font-awesome assets and font-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--Font-awesome declaration for all templates-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+    
+    <!--fetching CSS from the webroot's CSS folder. Used for ALL templates, global-->
+    <?= $this->Html->css(['bootstrap.min.css', 'style.css']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-nav">
-        <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
-        </div>
-        <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
-        </div>
-    </nav>
-    <main class="main">
-        <div class="container">
+    <div class="wrapper d-flex align-items-stretch">
+        <!--Loading the sidebar as an element here. Check out layout>elements>nav.php-->
+        <?= $this->element('nav')  ?>
+
+        <!--page content-->
+        <div id="content" class="p-4 p-md-5 pt-5">
             <?= $this->Flash->render() ?>
             <?= $this->fetch('content') ?>
         </div>
-    </main>
-    <footer>
-    </footer>
+    </div>
+    
+    <!--loading scripts-->
+    <?=$this->Html->script('jquery.min.js', ['block'=>true]); ?>
+    <?=$this->Html->script('popper.js', ['block'=>true]); ?>
+    <?=$this->Html->script('bootstrap.min.js', ['block'=>true]); ?>
+    <?=$this->Html->script('main.js', ['block'=>true]); ?>
+    
+   
+    <!--note that I'm moving this to the bottom so that template scripts with ['block'=>'true'] will appear here-->
+    <?= $this->fetch('script') ?>
 </body>
 </html>
