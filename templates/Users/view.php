@@ -13,15 +13,21 @@
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'side-nav-item']) ?>
             <?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <?php }?>
     <div class="column-responsive column-80">
         <div class="users view content">
-            <h3><?= h($user->id) ?></h3>
+            <!--Check to see if name has been set up-->
+            <?php if(empty($user->name)){?>
+                <h3>Avid Reader extraordinaire</h3>
+            <?php } else{ ?>
+                <h3><?= h($user->name) ?></h3>
+            <?php } ?>
+            
             <?= $this->Html->link(__('Edit Profile'), ['action' => 'editProfile', $user->id], ['class' => 'button']) ?>
+            <?= $this->Html->link(__('Account Settings'), ['action' => 'edit', $user->id], ['class' => 'button']) ?>
             <table>
                 <tr>
                     <th><?= __('Email') ?></th>
@@ -32,16 +38,13 @@
                     <td><?= h($user->role) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($user->id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Created') ?></th>
-                    <td><?= h($user->created) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Modified') ?></th>
-                    <td><?= h($user->modified) ?></td>
+                    <th><?= __('About me') ?></th>
+                    <!--Add check here if bio is not available-->
+                    <?php if(empty($user->bio)){ ?>
+                       <td><?= $this->Html->link(__('Fill out your bio'), ['action' => 'editProfile', $user->id], ['class' => 'side-nav-item']) ?></td>
+                    <?php } else{ ?>
+                        <td><?=h($user->bio) ?></td>
+                    <?php } ?>
                 </tr>
             </table>
             <div class="related">
