@@ -76,9 +76,14 @@
                                -->
                             <?php
                             $optionsArray = ['Want to Read' => 'Want to Read', 'Reading' => 'Reading', 'Finished' => 'Finished'];
-                            echo $this->Form->control('books.' . $key . '.hiddenid', ['value' => $books->id, 'type' => 'hidden']);
-                            echo $this->Form->control('books.' . $key . '._joinData.status', ['options' => $optionsArray, 'label' => false]);
+                            echo $this->Form->control('books.' . $key . '.hiddenid', ['value' => $books->id, 'type' => 'hidden']); 
                             ?>
+                            <!--status selector-->
+                            <div class = "form-row" style="padding:0.5em; text-align:right;">
+                                <div class = "col">
+                                    <?= $this->Form->control('books.' . $key . '._joinData.status', ['options' => $optionsArray, 'label' => false, 'class'=>'btn btn-secondary btn-sm dropdown-toggle']); ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
