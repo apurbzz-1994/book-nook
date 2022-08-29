@@ -116,15 +116,18 @@ class UsersController extends AppController
         ]);
 
         //generating list of book ids the reader already has
+        /**
+         * I'm generating an array of all the book ids and reading status of books
+         * the user currently has on their collection. Secondly, I'm getting a list
+         * of book ids that the user has selected via the POST request. Afterwards, 
+         * making a comparison to see if any selected book already belongs to the user's
+         * collection. If it does, then I'm setting the same status. 
+         */
         $booksUserAlreadyHas = [];
 
         foreach($user->books as $book){
             $booksUserAlreadyHas[$book->id] = $book->_joinData->status;
         }
-
-       
-
-    
 
         if ($this->request->is(['patch', 'post', 'put'])) {
 
