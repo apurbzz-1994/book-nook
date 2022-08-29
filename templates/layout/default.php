@@ -53,10 +53,10 @@ $cakeDescription = 'BookNook';
     </div>
     
     <!--loading scripts-->
-    <?=$this->Html->script('jquery.min.js', ['block'=>true]); ?>
-    <?=$this->Html->script('popper.js', ['block'=>true]); ?>
-    <?=$this->Html->script('bootstrap.min.js', ['block'=>true]); ?>
-    <?=$this->Html->script('main.js', ['block'=>true]); ?>
+    <?=$this->Html->script('jquery.min.js'); ?>
+    <?=$this->Html->script('popper.js'); ?>
+    <?=$this->Html->script('bootstrap.min.js'); ?>
+    <?=$this->Html->script('main.js'); ?>
     
    
     <!--note that I'm moving this to the bottom so that template scripts with ['block'=>'true'] will appear here-->

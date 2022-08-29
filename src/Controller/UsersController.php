@@ -114,9 +114,23 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['Books'],
         ]);
+
+        //generating list of book ids the reader already has
+        $booksUserAlreadyHas = [];
+
+        foreach($user->books as $book){
+            $booksUserAlreadyHas[$book->id] = $book->_joinData->status;
+        }
+
+       
+
+    
+
         if ($this->request->is(['patch', 'post', 'put'])) {
+
             /**code for setting the book status to "want to read" by default*/
             $allBookIds = $this->request->getData()['books']['_ids'];
+            $bookIdsUserAlreadyHas = array_keys($booksUserAlreadyHas);
            
             $books = [];
             $dataToPatch = $this->request->getData();
@@ -127,12 +141,18 @@ class UsersController extends AppController
             //added a if check if no book is selected (returns an empty id array) 
             if(!empty($allBookIds)){
                 foreach($allBookIds as $id){
-                    $bookEntry = ['id' => $id, '_joinData' => ['status'=>'Want to read']];
-                    array_push($books, $bookEntry);
+                    // need to add a check here to see if a book already has a status
+                    if(in_array($id, $bookIdsUserAlreadyHas)){
+                        $bookEntry = ['id' => $id, '_joinData' => ['status'=>$booksUserAlreadyHas[$id]]];
+                        array_push($books, $bookEntry);
+                    }
+                    else{
+                        $bookEntry = ['id' => $id, '_joinData' => ['status'=>'Want to read']];
+                        array_push($books, $bookEntry);
+                    }
                 }
             }
             
-             
             //setting the books attribute with the new array
             $dataToPatch['books'] = $books;
           
@@ -143,7 +163,6 @@ class UsersController extends AppController
                 'associated' => ['Books._joinData']
             ]);
 
-           
            
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your books collection has been updated'));
@@ -157,6 +176,7 @@ class UsersController extends AppController
         $this->set(compact('user', 'books'));
     }
 
+    
     public function editProfile($id = null){
         $user = $this->Users->get($id, [
             'contain' => ['Books'],
@@ -235,6 +255,7 @@ class UsersController extends AppController
 
             // fetching the logged in user's id so that they can be redirected to their profile
            $loggedInUserId = $this->request->getAttribute('authentication')->getIdentity()->id;
+        
          
             
             // redirect to User's own profile when logged in
