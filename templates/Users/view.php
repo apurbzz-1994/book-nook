@@ -4,6 +4,15 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
+
+    // checking to see if the user is visiting their own profile
+    // if not, then certain controls need to be disabled. 
+    $userAuthenticated = false;
+    if($this->Identity->get('id') == $user->id){
+        $userAuthenticated = true;
+    }
+
+
 ?>
 <div class="row">
 
@@ -18,8 +27,7 @@
 
         <!--Adding logic so that the actions column appears only when user visits their own profile-->
         <?php
-        $loggedInUserId = $this->Identity->get('id');
-        if ($loggedInUserId == $user->id) {
+        if ($userAuthenticated) {
         ?>
             <!--edit links-->
             <?= $this->Html->link(__('Edit Profile'), ['action' => 'editProfile', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
@@ -51,7 +59,11 @@
     <!--book display-->
     <div class="col-12 col-md-8 col-lg-8">
         <h3><?= __('My Books') ?></h3>
+        <?php
+        if ($userAuthenticated) {
+        ?>
         <?= $this->Html->link(__('Add a book'), ['action' => 'addBookByUser', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
+        <?php } ?>
         <?php if (!empty($user->books)) : ?>
                 <!--creating a form here to select book status-->
                 <?= $this->Form->create($user); ?>
@@ -78,19 +90,23 @@
                             $optionsArray = ['Want to Read' => 'Want to Read', 'Reading' => 'Reading', 'Finished' => 'Finished'];
                             echo $this->Form->control('books.' . $key . '.hiddenid', ['value' => $books->id, 'type' => 'hidden']); 
                             ?>
+                             <?php
+                            if ($userAuthenticated) { ?>
                             <!--status selector-->
                             <div class = "form-row" style="padding:0.5em; text-align:right;">
                                 <div class = "col">
                                     <?= $this->Form->control('books.' . $key . '._joinData.status', ['options' => $optionsArray, 'label' => false, 'class'=>'btn btn-secondary btn-sm dropdown-toggle']); ?>
                                 </div>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
                 </div>
-
+                <?php if ($userAuthenticated) { ?>
                 <?= $this->Form->button(__('Change Reading Status'), ['class' => 'btn btn-primary btn-sm btn-block']) ?>
                 <?= $this->Form->end() ?>
+                <?php } ?>
         <?php endif; ?>
     </div>
 

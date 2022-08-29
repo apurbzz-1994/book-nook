@@ -8,8 +8,14 @@
     <div class="p-4 pt-5">
         <h1><a href="index.html" class="logo"><i class="fas fa-book"></i> Book Nook</a></h1>
         <div class="mb-5">
-            <!--fetching user's name for disp;ay-->
-            <h3 class="h6">Hello, <?= $this->Identity->get('name') ?>!</h3>
+            <!--fetching user's name for display-->
+            <!--Also login/logout dynamic feature-->
+            <?php if(empty($this->Identity->get('id'))){ ?>
+                <?= $this->Html->link(__('Login'), ['action' => 'login'], ['class' => 'btn btn-outline-light']) ?>
+            <?php } else{ ?>
+                <h3 class="h6">Hello, <?= $this->Identity->get('name') ?>!</h3>
+                <?= $this->Html->link(__('Logout'), ['action' => 'logout'], ['class' => 'btn btn-outline-light']) ?>
+            <?php } ?>
         </div>
         <ul class="list-unstyled components mb-5">
             <li class="active">
