@@ -1,37 +1,32 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  * @var string[]|\Cake\Collection\CollectionInterface $books
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="users form content">
-            <?= $this->Form->create($user) ?>
-            <fieldset>
-                <legend><?= __('Edit User') ?></legend>
-                <?php
 
-                  
-                    
-                    echo $this->Form->control('books._ids', ['options' => $books, 'type'=>'select', 'multiple'=>'checkbox']);
-                    //books.0._joinData.status, ["value" => ""]
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
+<h3>Customise my collection</h3>
+
+<div class="row justify-content-md-center py-5">
+    <div class="col-12 col-md-12 col-lg-12">
+        <?= $this->Form->create($user) ?>
+        <?php
+
+        // preparing images for checkboxes:
+        $dataArray = array();
+
+
+        foreach ($allBooks as $book) {
+            $dataArray[$book->id] = "<img src='https://covers.openlibrary.org/b/isbn/" . $book->isbn . "-S.jpg' style='margin:1em'>" . "  " . $book->name;
+        }
+
+
+        echo $this->Form->control('books._ids', ['options' => $dataArray, 'type' => 'select', 'multiple' => 'checkbox', 'escape' => false, 'label' => false]);
+        //books.0._joinData.status, ["value" => ""]
+        ?>
+        <?= $this->Form->button(__('Save changes'),['class'=>'btn btn-info btn-md']) ?>
+        <?= $this->Form->end() ?>
     </div>
 </div>

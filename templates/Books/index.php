@@ -18,9 +18,9 @@
     <?php foreach ($books as $book) : ?>
         <div class="col-12 col-md-4 col-lg-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="https://covers.openlibrary.org/b/isbn/<?= $book->isbn ?>-L.jpg" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title"><?= $book->name ?></h5>
+                    <img src="https://covers.openlibrary.org/b/isbn/<?= $book->isbn ?>-M.jpg" alt="<?= $book->name ?> book" class="img-thumbnail rounded mx-auto d-block">
+                    <h5 class="card-title" style="margin-top: 1em;"><?= $book->name ?></h5>
                     <p class="card-text"><?= $book->description ?></p>
                 </div>
                 <ul class="list-group list-group-flush">

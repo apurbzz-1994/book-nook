@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class = "pt-3">
-            <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-info btn-md']) ?>
+            <?= $this->Form->button(__('Add book'), ['class'=>'btn btn-info btn-md']) ?>
         </div>
         <?= $this->Form->end() ?>
     </div>

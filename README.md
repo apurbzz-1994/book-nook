@@ -2,7 +2,10 @@
 
 Web application for avid book readers to create a knowledge repository.
 
-![Home page](/assets_git/one.png)
+![User profile](/assets_git/two.png)
+![Edit collection](/assets_git/one.png)
+![Books view](/assets_git/three.png)
+![Add book form](/assets_git/four.png)
 
 
 

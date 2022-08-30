@@ -174,8 +174,9 @@ class UsersController extends AppController
             $this->Flash->error(__('Your books collection could not be updated. Please, try again.'));
         }
         $books = $this->Users->Books->find('list', ['limit' => 200])->all();
+        $allBooks = $this->Users->Books->find();
       
-        $this->set(compact('user', 'books'));
+        $this->set(compact('user', 'books', 'allBooks'));
     }
 
     

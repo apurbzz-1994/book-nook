@@ -61,7 +61,7 @@
         <?php
         if ($userAuthenticated) {
         ?>
-        <?= $this->Html->link(__('Add a book'), ['action' => 'addBookByUser', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
+        <?= $this->Html->link(__('Edit my collection'), ['action' => 'addBookByUser', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
         <?php } ?>
         <?php if (!empty($user->books)) : ?>
                 <!--creating a form here to select book status-->
