@@ -82,6 +82,12 @@ class BooksTable extends Table
             ->notEmptyString('description');
 
         $validator
+            ->scalar('isbn')
+            ->maxLength('isbn', 128)
+            ->requirePresence('isbn', 'create')
+            ->notEmptyString('isbn');
+
+        $validator
             ->integer('category_id')
             ->requirePresence('category_id', 'create')
             ->notEmptyString('category_id');

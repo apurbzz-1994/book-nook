@@ -23,6 +23,7 @@ class BooksFixture extends TestFixture
                 'name' => 'Lorem ipsum dolor sit amet',
                 'author' => 'Lorem ipsum dolor sit amet',
                 'description' => 'Lorem ipsum dolor sit amet',
+                'isbn' => 'Lorem ipsum dolor sit amet',
                 'category_id' => 1,
             ],
         ];

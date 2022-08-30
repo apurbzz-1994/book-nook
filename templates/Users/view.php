@@ -4,7 +4,6 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
-
     // checking to see if the user is visiting their own profile
     // if not, then certain controls need to be disabled. 
     $userAuthenticated = false;
@@ -74,6 +73,9 @@
                             <div class="card-header">
                                 <?= h($books->name) ?>
                             </div>
+                            <div class = "card-body">
+                                <img src="https://covers.openlibrary.org/b/isbn/<?= $books->isbn ?>-M.jpg" alt="<?= $books->name ?> book" class="img-thumbnail rounded mx-auto d-block">
+                            </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"><span class="badge badge-dark"><?= h($books->category->name) ?></span></li>
                                 <li class="list-group-item"><b>Author:</b> <?= h($books->author) ?></li>
@@ -93,7 +95,7 @@
                              <?php
                             if ($userAuthenticated) { ?>
                             <!--status selector-->
-                            <div class = "form-row" style="padding:0.5em; text-align:right;">
+                            <div class = "form-row" style="padding:1em;">
                                 <div class = "col">
                                     <?= $this->Form->control('books.' . $key . '._joinData.status', ['options' => $optionsArray, 'label' => false, 'class'=>'btn btn-secondary btn-sm dropdown-toggle']); ?>
                                 </div>

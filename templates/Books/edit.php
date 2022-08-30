@@ -27,8 +27,8 @@
                     echo $this->Form->control('name');
                     echo $this->Form->control('author');
                     echo $this->Form->control('description');
+                    echo $this->Form->control('isbn');
                     echo $this->Form->control('category_id', ['options' => $categories]);
-                    echo $this->Form->control('users._ids', ['options' => $users]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

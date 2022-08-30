@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property string $author
  * @property string $description
+ * @property string $isbn
  * @property int $category_id
  *
  * @property \App\Model\Entity\Category $category
@@ -32,6 +33,7 @@ class Book extends Entity
         'name' => true,
         'author' => true,
         'description' => true,
+        'isbn' => true,
         'category_id' => true,
         'category' => true,
         'users' => true,

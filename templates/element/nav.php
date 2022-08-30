@@ -36,10 +36,10 @@
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Profile</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $userId]) ?>
+                    <?= $this->Html->link(__('View'), ['controller'=>'Users', 'action' => 'view', $userId]) ?>
                     </li>
                     <li>
-                    <?= $this->Html->link(__('Account Settings'), ['action' => 'edit', $userId]) ?>
+                    <?= $this->Html->link(__('Account Settings'), ['controller'=>'Users','action' => 'edit', $userId]) ?>
                     </li>
                 </ul>
             </li>
