@@ -4,12 +4,12 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
-    // checking to see if the user is visiting their own profile
-    // if not, then certain controls need to be disabled. 
-    $userAuthenticated = false;
-    if($this->Identity->get('id') == $user->id){
-        $userAuthenticated = true;
-    }
+// checking to see if the user is visiting their own profile
+// if not, then certain controls need to be disabled. 
+$userAuthenticated = false;
+if ($this->Identity->get('id') == $user->id) {
+    $userAuthenticated = true;
+}
 
 
 ?>
@@ -61,19 +61,19 @@
         <?php
         if ($userAuthenticated) {
         ?>
-        <?= $this->Html->link(__('Edit my collection'), ['action' => 'addBookByUser', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
+            <?= $this->Html->link(__('Edit my collection'), ['action' => 'addBookByUser', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
         <?php } ?>
-        <?php if (!empty($user->books)) : ?>
-                <!--creating a form here to select book status-->
-                <?= $this->Form->create($user); ?>
-                <div class = "row" style="margin:1em;">
+        <?php if (!empty($user->books)) { ?>
+            <!--creating a form here to select book status-->
+            <?= $this->Form->create($user); ?>
+            <div class="row" style="margin:1em;">
                 <?php foreach ($user->books as $key => $books) : ?>
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="card" style="padding-bottom:2em;">
                             <div class="card-header">
                                 <?= h($books->name) ?>
                             </div>
-                            <div class = "card-body">
+                            <div class="card-body">
                                 <img src="https://covers.openlibrary.org/b/isbn/<?= $books->isbn ?>-M.jpg" alt="<?= $books->name ?> book" class="img-thumbnail rounded mx-auto d-block">
                             </div>
                             <ul class="list-group list-group-flush">
@@ -90,26 +90,35 @@
                                -->
                             <?php
                             $optionsArray = ['Want to Read' => 'Want to Read', 'Reading' => 'Reading', 'Finished' => 'Finished'];
-                            echo $this->Form->control('books.' . $key . '.hiddenid', ['value' => $books->id, 'type' => 'hidden']); 
+                            echo $this->Form->control('books.' . $key . '.hiddenid', ['value' => $books->id, 'type' => 'hidden']);
                             ?>
-                             <?php
+                            <?php
                             if ($userAuthenticated) { ?>
-                            <!--status selector-->
-                            <div class = "form-row" style="padding:1em;">
-                                <div class = "col">
-                                    <?= $this->Form->control('books.' . $key . '._joinData.status', ['options' => $optionsArray, 'label' => false, 'class'=>'btn btn-secondary btn-sm dropdown-toggle']); ?>
+                                <!--status selector-->
+                                <div class="form-row" style="padding:1em;">
+                                    <div class="col">
+                                        <?= $this->Form->control('books.' . $key . '._joinData.status', ['options' => $optionsArray, 'label' => false, 'class' => 'btn btn-secondary btn-sm dropdown-toggle']); ?>
+                                    </div>
                                 </div>
-                            </div>
                             <?php } ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
-                </div>
-                <?php if ($userAuthenticated) { ?>
+            </div>
+            <?php if ($userAuthenticated) { ?>
                 <?= $this->Form->button(__('Change Reading Status'), ['class' => 'btn btn-primary btn-sm btn-block']) ?>
                 <?= $this->Form->end() ?>
-                <?php } ?>
-        <?php endif; ?>
+            <?php } ?>
+        <?php } else { ?>
+            <!--friendly message if no books are available in collection-->
+            <div class="alert alert-info" role="alert" style="margin-top:2em">
+                <h4 class="alert-heading">No books in your nook!</h4>
+                <hr>
+                <p>Looks like you haven't added any books to your collection yet. Go ahead and add some
+                    so that you can start tracking your progress, gather insights or compare. 
+                </p>
+            </div>
+        <?php } ?>
     </div>
 
 </div>
