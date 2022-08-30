@@ -1,3 +1,15 @@
+<?php 
+    // checking to see if the user is visiting their own profile
+    // if not, then certain controls need to be disabled. 
+    $userAuthenticated = false;
+    $userId = null;
+    if(!empty($this->Identity->get('id'))){
+        $userAuthenticated = true;
+        $userId = $this->Identity->get('id');
+    }
+?>
+
+
 <nav id="sidebar">
     <div class="custom-menu">
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
@@ -10,30 +22,30 @@
         <div class="mb-5">
             <!--fetching user's name for display-->
             <!--Also login/logout dynamic feature-->
-            <?php if(empty($this->Identity->get('id'))){ ?>
-                <?= $this->Html->link(__('Login'), ['action' => 'login'], ['class' => 'btn btn-outline-light']) ?>
+            <?php if(!$userAuthenticated){ ?>
+                <?= $this->Html->link(__('Login'), ['controller'=>'Users', 'action' => 'login'], ['class' => 'btn btn-outline-light']) ?>
             <?php } else{ ?>
                 <h3 class="h6">Hello, <?= $this->Identity->get('name') ?>!</h3>
-                <?= $this->Html->link(__('Logout'), ['action' => 'logout'], ['class' => 'btn btn-outline-light']) ?>
+                <?= $this->Html->link(__('Logout'), ['controller'=>'Users', 'action' => 'logout'], ['class' => 'btn btn-outline-light']) ?>
             <?php } ?>
         </div>
         <ul class="list-unstyled components mb-5">
+            <!--Profile information, should not be visible when user is logged out-->
+            <?php if($userAuthenticated){ ?>
             <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Profile</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
-                        <a href="#">Home 1</a>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $userId]) ?>
                     </li>
                     <li>
-                        <a href="#">Home 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 3</a>
+                    <?= $this->Html->link(__('Account Settings'), ['action' => 'edit', $userId]) ?>
                     </li>
                 </ul>
             </li>
+            <?php } ?>
             <li>
-                <a href="#">About</a>
+            <?= $this->Html->link(__('Books'), ['controller'=> 'Books', 'action' => 'index']) ?>
             </li>
             <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>

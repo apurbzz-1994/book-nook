@@ -40,5 +40,6 @@ class AppView extends View
         // for authentication plugin features to be used in templates
         $this->loadHelper('Authentication.Identity');
 
+
     }
 }
