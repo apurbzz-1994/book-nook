@@ -7,8 +7,10 @@
 ?>
 
 <div class = "row">
-    <?= $this->Html->link(__('New Book'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Books') ?></h3>
+    <div class = "col-12 col-md-12 col-lg-12">
+        <h3><?= __('Books') ?></h3>
+        <?= $this->Html->link(__('New Book'), ['action' => 'add'], ['class' => 'btn btn-info btn-md', 'style'=>'margin-bottom: 1em;']) ?>
+    </div>
 </div>
 
 

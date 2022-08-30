@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Book $book
@@ -6,28 +7,65 @@
  * @var \Cake\Collection\CollectionInterface|string[] $users
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Books'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<h3>Add a new book</h3>
+
+<div class="row justify-content-md-center py-5">
+    <div class="col-12 col-md-12 col-lg-12">
+        <?= $this->Form->create($book) ?>
+        <!--Book Title-->
+        <div class="form-group row">
+            <label for="bookname" class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+                <?= $this->Form->control('name', ['label' => false, 'class' => 'form-control']) ?>
+            </div>
         </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="books form content">
-            <?= $this->Form->create($book) ?>
-            <fieldset>
-                <legend><?= __('Add Book') ?></legend>
-                <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('author');
-                    echo $this->Form->control('description');
-                    echo $this->Form->control('isbn');
-                    echo $this->Form->control('category_id', ['options' => $categories]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+        <!--Book Author-->
+        <div class="form-group row">
+            <label for="bookauthor" class="col-sm-2 col-form-label">Author</label>
+            <div class="col-sm-10">
+                <?= $this->Form->control('author', ['label' => false, 'class' => 'form-control']) ?>
+            </div>
         </div>
+        <!--Book ISBN-->
+        <div class="form-group row">
+            <label for="bookisbn" class="col-sm-2 col-form-label">ISBN</label>
+            <div class="col-sm-10">
+                <?= $this->Form->control('isbn', ['label' => false, 'class' => 'form-control', 'id'=>'isbnfield']) ?>
+            </div>
+        </div>
+        <!--Book category-->
+        <div class="form-group row">
+            <label for="bookisbn" class="col-sm-2 col-form-label">Category</label>
+            <div class="col-sm-10">
+                <?= $this->Form->control('category_id', ['options' => $categories, 'label' => false, 'class' => 'form-control']) ?>
+            </div>
+        </div>
+        <!--Book description-->
+        <div class="form-group row">
+            <label for="bookisbn" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                <?= $this->Form->control('description', ['label' => false, 'class' => 'form-control', 'type' => 'textarea', 'rows' => 4]) ?>
+            </div>
+        </div>
+        <div class = "pt-3">
+            <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-info btn-md']) ?>
+        </div>
+        <?= $this->Form->end() ?>
     </div>
+    <div id = "book-display">
+        No book available
+    </div>
+    
 </div>
+
+<script>
+    const isbnField = document.getElementById('isbnfield');
+    const imgDisplayDiv = document.getElementById('book-display');
+    isbnField.addEventListener('change', (e) => {
+        imgDisplayDiv.innerHTML = '';
+        let imageTag = document.createElement('img');
+        let url = `https://covers.openlibrary.org/b/isbn/${e.target.value}-M.jpg`;
+        imageTag.setAttribute("src", url);
+        imgDisplayDiv.appendChild(imageTag);
+    });
+</script>

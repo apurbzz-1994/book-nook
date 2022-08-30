@@ -46,7 +46,7 @@ $cakeDescription = 'BookNook';
         <?= $this->element('nav')  ?>
 
         <!--page content-->
-        <div id="content" class="p-4 p-md-5 pt-5">
+        <div id="content" class="p-4 p-md-5 pt-5" style="background-color:#f2e8dc">
             <?= $this->Flash->render() ?>
             <?= $this->fetch('content') ?>
         </div>
