@@ -100,6 +100,12 @@ if ($this->Identity->get('id') == $user->id) {
                                         <?= $this->Form->control('books.' . $key . '._joinData.status', ['options' => $optionsArray, 'label' => false, 'class' => 'btn btn-secondary btn-sm dropdown-toggle']); ?>
                                     </div>
                                 </div>
+                                <div class="form-row" style="padding:1em;">
+                                    <div class="col">
+                                        <?= $this->Html->link(__('Notions'), ['controller'=>'Notions','action' => 'index', $books->_joinData->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                    </div>
+                                </div>
+
                             <?php } ?>
                         </div>
                     </div>

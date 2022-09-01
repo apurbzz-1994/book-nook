@@ -35,7 +35,8 @@ class UsersController extends AppController
             'contain' => ['Books', 'Books.Categories'],
         ]);
 
-        
+       
+
         
         // placing code from the edit function here
         if ($this->request->is(['patch', 'post', 'put'])) {

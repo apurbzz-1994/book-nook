@@ -52,6 +52,9 @@ class BooksUsersTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
+        $this->hasMany('Notions', [
+            'foreignKey' => 'books_user_id',
+        ]);
     }
 
     /**
@@ -61,12 +64,16 @@ class BooksUsersTable extends Table
      * @return \Cake\Validation\Validator
      */
     public function validationDefault(Validator $validator): Validator
-    {   
+    {
+        $validator
+            ->integer('book_id')
+            ->requirePresence('book_id', 'create')
+            ->notEmptyString('book_id');
 
-        /**
-         * Please make sure validators for the foreign keys in the joining table are
-         * not present. 
-         */
+        $validator
+            ->integer('user_id')
+            ->requirePresence('user_id', 'create')
+            ->notEmptyString('user_id');
 
         $validator
             ->scalar('status')
