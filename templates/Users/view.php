@@ -57,7 +57,7 @@ if ($this->Identity->get('id') == $user->id) {
     </div>
     <!--book display-->
     <div class="col-12 col-md-8 col-lg-8">
-        <h3><?= __('My Books') ?></h3>
+        <h3><?= __('My Copies') ?></h3>
         <?php
         if ($userAuthenticated) {
         ?>
