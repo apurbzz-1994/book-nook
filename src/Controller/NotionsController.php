@@ -20,11 +20,20 @@ class NotionsController extends AppController
     {
         
         $this->paginate = [
-            'contain' => ['BooksUsers'],
+            'contain' => ['BooksUsers', 'BooksUsers.Books'],
         ];
         $notions = $this->paginate($this->Notions->find()->where(['books_user_id'=> $id]));
 
-        $this->set(compact('notions'));
+       
+
+        // need to send the particular book object as well
+        $bookObject = [];
+        if(!empty($notions)){
+            $bookObject = $notions->toList()[0]['books_user']['book'];
+        }
+
+
+        $this->set(compact('notions', 'bookObject'));
     }
 
     /**
