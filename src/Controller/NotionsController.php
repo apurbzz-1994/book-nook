@@ -40,10 +40,10 @@ class NotionsController extends AppController
         $booksUsers = $this->Notions->BooksUsers->find('list', ['limit' => 200])->all();
         
         // need to send the particular book object as well
-        $bookObject = [];
-        if(!empty($notions)){
-            $bookObject = $notions->toList()[0]['books_user']['book'];
-        }
+        
+        
+        $bookJoinTableRow = $this->Notions->BooksUsers->find()->where(['id'=>$id])->toList();
+        $bookObject = $this->Notions->BooksUsers->Books->find()->where(['id'=>$bookJoinTableRow[0]['book_id']])->toList()[0];
 
 
         $this->set(compact('notions', 'bookObject', 'notion', 'booksUsers'));
@@ -129,6 +129,6 @@ class NotionsController extends AppController
             $this->Flash->error(__('The notion could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'index', $notion->books_user_id]);
     }
 }
