@@ -24,8 +24,21 @@ class NotionsController extends AppController
         ];
         $notions = $this->paginate($this->Notions->find()->where(['books_user_id'=> $id]));
 
-       
+        // code for "add" form here
+        $notion = $this->Notions->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $userData = $this->request->getData();
+            $userData['books_user_id'] = $id;
+            $notion = $this->Notions->patchEntity($notion, $userData);
+            if ($this->Notions->save($notion)) {
+                $this->Flash->success(__('The notion has been saved.'));
 
+                return $this->redirect(['action' => 'index', $id]);
+            }
+            $this->Flash->error(__('The notion could not be saved. Please, try again.'));
+        }
+        $booksUsers = $this->Notions->BooksUsers->find('list', ['limit' => 200])->all();
+        
         // need to send the particular book object as well
         $bookObject = [];
         if(!empty($notions)){
@@ -33,7 +46,7 @@ class NotionsController extends AppController
         }
 
 
-        $this->set(compact('notions', 'bookObject'));
+        $this->set(compact('notions', 'bookObject', 'notion', 'booksUsers'));
     }
 
     /**
@@ -44,7 +57,8 @@ class NotionsController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
-    {
+    {   
+        
         $notion = $this->Notions->get($id, [
             'contain' => ['BooksUsers'],
         ]);

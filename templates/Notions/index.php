@@ -21,9 +21,22 @@
             </div>
         </div>
     </div>
+    <!--add notions form here-->
+    <div class="col-12 col-md-8 col-lg-8">
+        <?= $this->Form->create($notion) ?>
+        <fieldset>
+            <legend><?= __('Add Notion') ?></legend>
+            <?php
+            echo $this->Form->control('description');
+            echo $this->Form->control('sale_price');
+            ?>
+        </fieldset>
+        <?= $this->Form->button(__('Submit')) ?>
+        <?= $this->Form->end() ?>
+    </div>
 </div>
 
-<!--add notions here-->
+
 <div class="row">
     <div class="col-12 col-md-12 col-lg-12 text-center">
 
