@@ -58,6 +58,7 @@
                     <p class="card-text"><b>Useful for:</b>
                     <h6><span class="badge badge-primary"><?= h($notion->sale_price) ?></span></h6>
                     </p>
+                    <hr>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $notion->id], ['class' => 'fas fa-edit']) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $notion->id], ['confirm' => __('Are you sure you want to delete # {0}?', $notion->id), 'class' => 'fas fa-trash']) ?>
                 </div>

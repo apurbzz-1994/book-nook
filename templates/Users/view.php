@@ -68,7 +68,7 @@ if ($this->Identity->get('id') == $user->id) {
             <?= $this->Form->create($user); ?>
             <div class="row" style="margin:1em;">
                 <?php foreach ($user->books as $key => $books) : ?>
-                    <div class="col-12 col-md-6 col-lg-6">
+                    <div class="col-12 col-md-6 col-lg-6 mb-2">
                         <div class="card" style="padding-bottom:2em;">
                             <div class="card-header">
                                 <?= h($books->name) ?>

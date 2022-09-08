@@ -20,6 +20,19 @@ class UsersController extends AppController
     {
         $users = $this->paginate($this->Users);
         $this->set(compact('users'));
+
+
+
+        // $pokemon = $this->Pokemons->find()
+        //     ->where([
+        //         'OR' => [
+        //             'condition1' => 'a',
+        //             'condition2' => 'b'
+        //         ], 
+
+        //     ]);
+
+        // debug($pokemon); exit;
     }
 
     /**
@@ -46,6 +59,8 @@ class UsersController extends AppController
              * called "hiddenid". I'll be manually changing these to "id" here
              */
 
+             
+
             $booksChanged = $this->request->getData()['books'];
             $dataToPatch = $this->request->getData();
             $books = [];
@@ -55,14 +70,29 @@ class UsersController extends AppController
                 array_push($books, $bookEntry);
             }
 
+
+
             $dataToPatch['books'] = $books;
+
            
            
             /**
              * SUPER IMPORTANT: Note that I am turning off the validations for
              * the books and users entity, because I'm not altering them in any way. 
              * All I'm doing is adding things to the join table, and that's already being 
-             * validated properly. */    
+             * validated properly. 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * Also, note that the reason it prompts invalid validation in the first place is because
+             * $dataToPatch only has a list of books, and nothing about the user. So it considers 
+             * the other fields as blank. However, if you're turning off validation, it will retain the
+             * previous value
+             * 
+             * 
+             * */    
 
             $user = $this->Users->patchEntity($user, $dataToPatch, [
                 'validate' => false,
@@ -158,13 +188,17 @@ class UsersController extends AppController
             
             //setting the books attribute with the new array
             $dataToPatch['books'] = $books;
+
+            //debug($dataToPatch);
+            
           
             /** =============end code here========================================*/
             
             // note that I am patching the modified array, and not the original request data
             $user = $this->Users->patchEntity($user, $dataToPatch, [
-                'associated' => ['Books._joinData']
+                'associated' => ['Books._joinData'=>['validate'=>false]]
             ]);
+
 
            
             if ($this->Users->save($user)) {

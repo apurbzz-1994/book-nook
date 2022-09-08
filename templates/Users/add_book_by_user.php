@@ -17,8 +17,7 @@
         // preparing images for checkboxes:
         $dataArray = array();
 
-
-        foreach ($allBooks as $book) {
+        foreach($allBooks as $book) {
             $dataArray[$book->id] = "<img src='https://covers.openlibrary.org/b/isbn/" . $book->isbn . "-S.jpg' style='margin:1em'>" . "  " . $book->name;
         }
 

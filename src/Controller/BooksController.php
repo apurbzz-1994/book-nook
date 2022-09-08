@@ -39,7 +39,9 @@ class BooksController extends AppController
             'contain' => ['Categories', 'Users'],
         ]);
 
-        $this->set(compact('book'));
+        
+
+        $this->set(compact('book')); 
     }
 
     /**
