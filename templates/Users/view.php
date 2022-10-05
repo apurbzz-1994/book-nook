@@ -61,7 +61,7 @@ if ($this->Identity->get('id') == $user->id) {
         <?php
         if ($userAuthenticated) {
         ?>
-            <?= $this->Html->link(__('Edit my collection'), ['action' => 'addBookByUser', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
+            <?= $this->Html->link(__('Edit my collection'), ['action' => 'addBookByUser', base64_encode($user->id)],  ['class' => 'btn btn-info btn-sm']) ?>
         <?php } ?>
         <?php if (!empty($user->books)) { ?>
             <!--creating a form here to select book status-->
@@ -81,6 +81,7 @@ if ($this->Identity->get('id') == $user->id) {
                                 <li class="list-group-item"><b>Author:</b> <?= h($books->author) ?></li>
                                 <li class="list-group-item"><b>Description: </b><?= h($books->description) ?></li>
                             </ul>
+                           
                             <!--book status-->
                             <!--
                                    Please note that this is not correct:

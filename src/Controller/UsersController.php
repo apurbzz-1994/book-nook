@@ -49,8 +49,6 @@ class UsersController extends AppController
         ]);
 
        
-
-        
         // placing code from the edit function here
         if ($this->request->is(['patch', 'post', 'put'])) {
 
@@ -141,6 +139,9 @@ class UsersController extends AppController
     */
     public function addBookByUser($id = null)
     {
+        // decoding the id
+        $id = base64_decode($id);
+
         $user = $this->Users->get($id, [
             'contain' => ['Books'],
         ]);

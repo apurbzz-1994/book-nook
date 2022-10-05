@@ -45,6 +45,18 @@ class PagesController extends AppController
      */
     public function display(string ...$path): ?Response
     {
+
+        //load the table with all the customizable content
+        // $this->loadModel('ContentStorage'); // better to use TableLocator for this as loadModel will be deprecated
+
+        // // fetch the specific custom content for each page based on the path
+        // $page_storage = $this->ContentStorage->find('list', [
+        //     'keyField' => 'identifier',
+        //     'valueField' => 'value'
+        // ])->where(['page_name' => implode("_", $path)]);
+        // $this->set(compact('page_storage'));
+
+
         if (!$path) {
             return $this->redirect('/');
         }
